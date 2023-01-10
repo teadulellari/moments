@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
+import postRoutes from './routes/posts.js';
+
 
 //create instance of express app
 const app = express();
@@ -11,6 +13,8 @@ dotenv.config();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+//conect routes to our app 
+app.use('/posts', postRoutes);
 
 
 //set up the DB
