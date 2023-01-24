@@ -26,7 +26,8 @@ export default makeStyles((theme) => ({
   },
   googleButton: {
     margin: theme.spacing(3, 0, 2),
-    
-    
+    display: "flex",
+    flexDirection: 'Column',
+    alignItems:'center'
   },
 }));

@@ -6,14 +6,13 @@ import {
   Grid,
   Typography,
   Container,
-  TextField,
 } from "@material-ui/core";
 import useStyles from "./styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
-import Icon from "./icon";
 import { useDispatch } from "react-redux";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const classes = useStyles();
@@ -21,6 +20,7 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {};
   const handleChange = () => {};
@@ -33,11 +33,11 @@ const Auth = () => {
   };
 
   const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
+    console.log(res)
+    navigate('/')
 
     try {
-      dispatch({ type: "AUTH", data: { result, token } });
+      dispatch({ type: "AUTH", data: res });
     } catch (error) {
       console.log(error);
     }
@@ -127,10 +127,12 @@ const Auth = () => {
             </div>
           ) : (
             //<Button component={Link} to="/auth" variant="contained" color="primary" >Sign In</Button>
-            <GoogleLogin
-              onSuccess={(response) => console.log(response)}
-              onError={() => console.log("Error")}
+            <div className={classes.googleButton}>
+                <GoogleLogin
+                onSuccess={(response) => googleSuccess(response)}
+                onError={(error) => googleFailure(error)}
             />
+            </div>
           )}
           <Grid container justifyContent="center">
             <Grid item>
