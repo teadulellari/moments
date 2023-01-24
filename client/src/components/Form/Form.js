@@ -52,7 +52,6 @@ const Form = ({ currentId, setCurrentId }) => {
           name="creator"
           variant="outlined"
           label="Creator"
-          f
           fullWidth
           value={postData.creator}
           onChange={(e) =>
@@ -63,7 +62,6 @@ const Form = ({ currentId, setCurrentId }) => {
           name="title"
           variant="outlined"
           label="Tittle"
-          f
           fullWidth
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
@@ -72,7 +70,6 @@ const Form = ({ currentId, setCurrentId }) => {
           name="message"
           variant="outlined"
           label="Message"
-          f
           fullWidth
           value={postData.message}
           onChange={(e) =>
@@ -83,7 +80,6 @@ const Form = ({ currentId, setCurrentId }) => {
           name="tags"
           variant="outlined"
           label="Tags"
-          f
           fullWidth
           value={postData.tags}
           onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
