@@ -13,31 +13,49 @@ import Input from "./Input";
 import { useDispatch } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import { signin, signup } from "../../actions/auth";
+import { AUTH } from '../../constants/actionTypes';
+
+const initialState = { firstName: '', lastName: '', email: '', password:'', confirmPassword:'' }
 
 const Auth = () => {
   const classes = useStyles();
   const user = false;
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(isSignup){
+        dispatch(signup(formData, navigate));
+
+    }else {
+        dispatch(signin(formData, navigate))
+
+    }
+  };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  };
+
+
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const switchMode = () => {
     setIsSignup((prevIsSignUp) => !prevIsSignUp);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
-    console.log(res)
-    navigate('/')
+    console.log(res);
+    navigate('/');
 
     try {
-      dispatch({ type: "AUTH", data: res });
+      dispatch({ type: AUTH, data: res });
     } catch (error) {
       console.log(error);
     }

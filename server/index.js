@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/user.js';
 
 
 //create instance of express app
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 //conect routes to our app 
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
 
 //set up the DB

@@ -5,11 +5,18 @@ import { googleLogout } from "@react-oauth/google";
 const authReducer = (state = { authData: null }, action) => {
   switch (action.type) {
     case AUTH:
-      console.log(action?.data);
-      const userData = jwt_decode(action?.data?.credential);
-      console.log(userData);
-      localStorage.setItem("profile", JSON.stringify({ ...userData }));
+      let userData;
+      if (action.data?.result) {
+        userData = action.data.result;
+        localStorage.setItem("profile", JSON.stringify({ ...userData }));
+        console.log(userData);
+      } else {
+        userData = jwt_decode(action?.data?.credential);
+        localStorage.setItem("profile", JSON.stringify({ ...userData }));
+        console.log(userData);
+      }
       return { ...state, authData: userData };
+
     case LOGOUT:
       localStorage.clear();
       googleLogout();
