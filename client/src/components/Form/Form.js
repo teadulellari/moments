@@ -16,46 +16,47 @@ const Form = ({ currentId, setCurrentId }) => {
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'));
+  //const user = JSON.parse(localStorage.getItem('profile'));
+  const user = useSelector((state) => state?.auth?.authData);
   
   useEffect(() => {
     if(post) setPostData(post);
   }, [post]);
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if(currentId ===0 ) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
-    }else{
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
-    }
-    clear();
-
-    
-  };
   const clear = () => {
     setCurrentId(0);
     setPostData({ title: '', message: '', tags: '', selectedFile: '' });
   }
 
 
-  if( !user?.result?.name) {
-    return(<Paper className={classes.paper} >
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("ekkzaaakli")
+    if(currentId === 0 ) {
+      dispatch(createPost({ ...postData, name: user?.name }));
+      console.log("this is the data i get" + user?.name  )
+      console.log({ postData })
+    }else{
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+    }
+    clear();
+  };
+  
+  if(!user ) {
+    return(
+      <Paper className={classes.paper}>
       <Typography variant="h6" align="center">
-        Please Sign In to create your own memories or like other's memories.
+        Please Sign In to create your own memories and like other's memories.
       </Typography>
-
     </Paper>
-    )
+    );
   }
   return (
     <Paper className={classes.paper}>
       <form
         autoComplete="off"
         noValidate
-        className={`${classes.root} ${classes.formn}`}
+        className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">{ currentId ? 'Editing' : 'Creating' } a memory</Typography>
