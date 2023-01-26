@@ -33,8 +33,8 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     console.log("ekkzaaakli")
     if(currentId === 0 ) {
-      dispatch(createPost({ ...postData, name: user?.name }));
-      console.log("this is the data i get" + user?.name  )
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      console.log("this is the data i get" )
       console.log({ postData })
     }else{
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
@@ -56,7 +56,7 @@ const Form = ({ currentId, setCurrentId }) => {
       <form
         autoComplete="off"
         noValidate
-        className={`${classes.root} ${classes.form}`}
+        className={`${classes.root} ${classes.formn}`}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">{ currentId ? 'Editing' : 'Creating' } a memory</Typography>

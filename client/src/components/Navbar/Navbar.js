@@ -25,15 +25,15 @@ const Navbar = () => {
   console.log(user)
 
 
-  // useEffect(() => {
-  //   const token = user?.token;
+  useEffect(() => {
+    const token = user?.token;
 
-  //   if (token) {
-  //     const decodedToken = decode(token);
+    if (token) {
+      const decodedToken = decode(token);
 
-  //     if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-  //   }
-  // }, [location]);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+  }, [location]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
