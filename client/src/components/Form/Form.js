@@ -5,6 +5,7 @@ import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
 import { createPost, updatePost } from '../../actions/posts';
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -18,6 +19,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   //const user = JSON.parse(localStorage.getItem('profile'));
   const user = useSelector((state) => state?.auth?.authData);
+  const navigate = useNavigate();
   
   useEffect(() => {
     if(post) setPostData(post);
@@ -31,10 +33,8 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("ekkzaaakli")
     if(currentId === 0 ) {
-      dispatch(createPost({ ...postData, name: user?.result?.name || user?.name }));
-      console.log({ postData })
+      dispatch(createPost({ ...postData, name: user?.result?.name || user?.name }, navigate));
     }else{
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name || user?.name }));
     }
@@ -51,7 +51,7 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate
