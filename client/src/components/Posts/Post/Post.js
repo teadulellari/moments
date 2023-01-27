@@ -21,10 +21,6 @@ const Post = ({ post,  setCurrentId }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.auth?.authData);
  
-  console.log("beko here")
-  console.log(user)
-  console.log("beko post")
-  console.log(post)
   const Likes = () => {
     if (post?.likes?.length > 0) {
       return post.likes.find((like) => like === (user?.data?.googleId || user?.result?._id))

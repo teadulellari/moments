@@ -30,44 +30,27 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const classes = useStyles();
-  const [ search, setSearch ] = useState();
-  const [ tags, setTags ] = useState([]);
+  const [search, setSearch] = useState();
+  const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  // }, [currentId, dispatch]);
 
   const searchPost = () => {
-    let searchWords = '';
-    //check if searchQuery is empty
-    console.log("again beko bug finder")
-    console.log(search)
-    console.log(tags)
-     if(search && tags.length > 0){
-      searchWords = `searchQuery=${search.trim()}`+ `&` + `tags=${tags.join(',')}`;
-     }else if(search){
-        searchWords = `searchQuery=${search.trim()}` ;
-     } else{
-      searchWords = `tags=${tags.join(',')}` ;
-     }
-     console.log(searchWords)
-     dispatch(getPostsBySearch( searchWords));
-       navigate(
-         `/posts/search?${searchWords}`
-       );
+    let searchWords = "";
 
-
-
-    // if (search?.trim() || tags) {
-    //   dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-    //   navigate(
-    //     `/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`
-    //   );
-    //   console.log('here1')
-    // } else {
-    //   navigate("/");
-    //   console.log('here2')
-    // }
+    if (search && tags.length > 0) {
+      searchWords =
+        `searchQuery=${search.trim()}` + `&` + `tags=${tags.join(",")}`;
+    } else if (search) {
+      searchWords = `searchQuery=${search.trim()}`;
+    } else {
+      searchWords = `tags=${tags.join(",")}`;
+    }
+    console.log(searchWords);
+    dispatch(getPostsBySearch(searchWords));
+    navigate(`/posts/search?${searchWords}`);
   };
 
   const handleKeyPress = (e) => {
@@ -127,7 +110,7 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Pagination />
+              <Pagination page={page}/>
             </Paper>
           </Grid>
         </Grid>
