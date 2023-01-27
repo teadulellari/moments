@@ -33,11 +33,10 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     console.log("ekkzaaakli")
     if(currentId === 0 ) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
-      console.log("this is the data i get" )
+      dispatch(createPost({ ...postData, name: user?.result?.name || user?.name }));
       console.log({ postData })
     }else{
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name || user?.name }));
     }
     clear();
   };
