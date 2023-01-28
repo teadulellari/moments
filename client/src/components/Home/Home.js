@@ -39,16 +39,22 @@ const Home = () => {
 
   const searchPost = () => {
     let searchWords = "";
+    console.log(search)
+    console.log(tags)
+    console.log(tags == true)
 
     if (search && tags.length > 0) {
       searchWords =
         `searchQuery=${search.trim()}` + `&` + `tags=${tags.join(",")}`;
     } else if (search) {
       searchWords = `searchQuery=${search.trim()}`;
-    } else {
+    } else if(tags.length != 0) {
       searchWords = `tags=${tags.join(",")}`;
+    }else {
+      dispatch(getPosts(1));
+      navigate(`/posts`);
+      return;
     }
-    console.log(searchWords);
     dispatch(getPostsBySearch(searchWords));
     navigate(`/posts/search?${searchWords}`);
   };
@@ -65,7 +71,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" >
         <Grid
           container
           justifyContent="space-between"

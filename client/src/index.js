@@ -8,7 +8,8 @@ import './index.css';
 import App from "./App";
 
 //set up redux
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)),);
 
 ReactDOM.render(
 <Provider store = {store}> 

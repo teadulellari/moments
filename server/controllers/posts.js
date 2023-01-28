@@ -38,8 +38,10 @@ export const getPostsBySearch = async (req, res) => {
         if(searchQuery)
             queryConditions.push({title: new RegExp(searchQuery, "i")})
         if(tags)
-            queryConditions.push({ tags: { $in: tags.split(',') } })
+            queryConditions.push({ tags: { $in: tags.split(',') } });
         const posts = await PostMessage.find({ $or: queryConditions});
+        console.log('This is the data I find in db')
+        console.log(posts)
         res.json({ data: posts });   
     } catch (error) {    
         res.status(404).json({ message: error.message });

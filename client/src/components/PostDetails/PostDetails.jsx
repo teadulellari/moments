@@ -12,7 +12,6 @@ const PostDetails = () => {
     const navigate = useNavigate();
     const classes = useStyles();
     const { id } = useParams();
-    console.log("as I type and save the file, frontend refreshes automatically");
 
     useEffect(() => {
       dispatch(getPost(id));
@@ -21,16 +20,13 @@ const PostDetails = () => {
     useEffect(() => {
       if(post){
         const tagQuery =  `tags=`+ post?.tags.join(',');
-        console.log("this is my tagQuery")
-        console.log(tagQuery);
-        dispatch(getPostsBySearch(tagQuery));
+        if(post?.tags?.length > 0 && post?.tags != ""){
+          dispatch(getPostsBySearch(tagQuery));
+        }
       }
     }, [post]);
   
-    console.log("what is this post")
-    console.log(post)
     if(!post) return null;
-    console.log("after null");
 
     if(isLoading) {
       return (<Paper  elevation={6} className={classes.loadingPaper}>

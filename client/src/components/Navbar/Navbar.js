@@ -21,9 +21,6 @@ const Navbar = () => {
     navigate("/auth");
   };
 
-  console.log("beko in navbar")
-  console.log(user)
-
 
   useEffect(() => {
     const token = user?.token;

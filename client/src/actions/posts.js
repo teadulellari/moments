@@ -40,13 +40,13 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     if(searchQuery ){
-      const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
-      console.log(data);
+      const {data}  = await api.fetchPostsBySearch(searchQuery);
+      dispatch({ type: FETCH_BY_SEARCH, payload:  data });
     }
     dispatch({ type: END_LOADING });
     
 
-    //dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
+    
     //dispatch({ type: END_LOADING });
     
   } catch (error) {
