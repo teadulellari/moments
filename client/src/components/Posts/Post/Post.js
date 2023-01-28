@@ -15,6 +15,7 @@ import useStyles from './styles';
 const Post = ({ post, setCurrentId }) => {
   const user = useSelector((state) => state?.auth?.authData);
   const [likes, setLikes] = useState(post?.likes);
+  console.log(likes);
   const dispatch = useDispatch();
   const history = useNavigate();
   const classes = useStyles();
@@ -33,6 +34,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   const Likes = () => {
+    console.log("i like it");
     if (likes.length > 0) {
       return likes.find((like) => like === userId)
         ? (
@@ -64,7 +66,7 @@ const Post = ({ post, setCurrentId }) => {
           <Typography variant="h6">{post.name}</Typography>
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
         </div>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+        {(userId === post?.creator || userId._id === post?.creator) && (
         <div className={classes.overlay2} name="edit">
           <Button
             onClick={(e) => {
@@ -87,10 +89,10 @@ const Post = ({ post, setCurrentId }) => {
         </CardContent>
       </ButtonBase>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
+        <Button size="small" color="primary" disabled={!user} onClick={handleLike}>
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+        {(userId === post?.creator || userId === post?.creator) && (
           <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon fontSize="small" /> &nbsp; Delete
           </Button>

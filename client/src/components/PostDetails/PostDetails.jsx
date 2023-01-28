@@ -38,10 +38,11 @@ const PostDetails = () => {
 
     const recomendedPosts = posts.filter(({_id}) => _id !== post._id);
 
-    const openPost = (_id) => navigate(`/posts/${id}`); //check this
+    const openPost = (_id) => navigate(`/posts/${_id}`); 
     console.log("before big return");
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+      {console.log("inside big return")}
     <div className={classes.card}>
       <div className={classes.section}>
         <Typography variant="h3" component="h2">{post.title}</Typography>

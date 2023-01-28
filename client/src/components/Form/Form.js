@@ -14,7 +14,9 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+  const state = useSelector((state) => state);
+
+  const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null);
   const classes = useStyles();
   const dispatch = useDispatch();
   //const user = JSON.parse(localStorage.getItem('profile'));
@@ -54,8 +56,9 @@ const Form = ({ currentId, setCurrentId }) => {
     <Paper className={classes.paper} elevation={6}>
       <form
         autoComplete="off"
+       position="static"
         noValidate
-        className={`${classes.root} ${classes.formn}`}
+        className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">{ currentId ? 'Editing' : 'Creating' } a memory</Typography>
