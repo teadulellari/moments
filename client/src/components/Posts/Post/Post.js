@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import { likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles';
 
@@ -19,6 +18,7 @@ const Post = ({ post, setCurrentId }) => {
   const history = useNavigate();
   const classes = useStyles();
 
+
   const userId = user?.sub || user?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
 
@@ -26,9 +26,9 @@ const Post = ({ post, setCurrentId }) => {
     dispatch(likePost(post._id));
 
     if (hasLikedPost) {
-      setLikes(post.likes.filter((id) => id !== userId));
+      setLikes(likes.filter((id) => id !== userId));
     } else {
-      setLikes([...post.likes, userId]);
+      setLikes([...likes, userId]);
     }
   };
 
