@@ -7,7 +7,8 @@ import {
   LIKE,
   START_LOADING,
   END_LOADING,
-  FETCH_POST
+  FETCH_POST,
+  COMMENT
 } from "../constants/actionTypes";
 import * as api from "../api";
 // import posts from '../reducers/posts';
@@ -90,6 +91,20 @@ export const likePost = (id) => async (dispatch) => {
     const { data } = await api.likePost(id);
 
     dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+
+    const { data } = await api.comment(value, id);
+    console.log(data);
+    dispatch({ type: COMMENT, payload: data });
+    console.log(data.comments);
+    return data.comments;
+  
   } catch (error) {
     console.log(error);
   }

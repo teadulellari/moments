@@ -5,8 +5,10 @@ import moment from 'moment';
 import { useParams,  useNavigate } from 'react-router-dom';
 import { getPost, getPostsBySearch} from '../../actions/posts';
 import useStyles from './styles';
+import CommentSection from './CommentSection';
 
 const PostDetails = () => {
+
     const { post, posts, isLoading} = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,7 +27,7 @@ const PostDetails = () => {
         }
       }
     }, [post]);
-  
+  console.log(post)
     if(!post) return null;
 
     if(isLoading) {
@@ -34,12 +36,12 @@ const PostDetails = () => {
       </Paper>
       )
     };
-    console.log("after isloading");
+   
 
     const recomendedPosts = posts.filter(({_id}) => _id !== post._id);
 
     const openPost = (_id) => navigate(`/posts/${_id}`); 
-    console.log("before big return");
+    
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       {console.log("inside big return")}
@@ -53,7 +55,7 @@ const PostDetails = () => {
         <Divider style={{ margin: '20px 0' }} />
         <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
         <Divider style={{ margin: '20px 0' }} />
-        <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+        <CommentSection post={post} />
         <Divider style={{ margin: '20px 0' }} />
       </div>
       <div className={classes.imageSection}>
@@ -81,4 +83,4 @@ const PostDetails = () => {
   )
 }
 
-export default PostDetails
+export default PostDetails;
